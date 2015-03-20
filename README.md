@@ -1,2 +1,2 @@
-# team39
-15-437/15-637 repo for kschiu
+# Team39
+Project Management Web Application for Agile Scrum Development
