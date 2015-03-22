@@ -10,4 +10,7 @@ urlpatterns = patterns('',
     url(r'^index$', 'agility.views.index', name='index'),
     url(r'^register$', 'agility.views.register', name='register'),
     url(r'^create_task$', 'agility.views.create_task', name='create_task'),
+	url(r'^create_project$', 'agility.views.create_project', name='create_project'),
+	url(r'^create_sprint$', 'agility.views.create_sprint', name='create_sprint'),
+    
 )

@@ -1,0 +1,17 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+    <div class="container">
+    <p>
+        Create a Project
+    </p>
+
+    <form enctype="multipart/form-data" method="post" action="{% url 'create_project' %}" id="create_project">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+    </form>
+
+    <button class="btn btn-default" type="submit" form="create_project" value="Submit">Create Project</button>
+{% endblock %}

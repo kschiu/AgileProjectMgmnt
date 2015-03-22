@@ -63,3 +63,26 @@ def create_task(request):
 					github_link=form.cleaned_data['github_link'])
 	new_task.save()
 	return render(request, 'agility/index.html', context)
+
+@transaction.atomic
+def create_project(request):
+	context = {}
+
+	if request.method == 'GET':
+		context['form'] = ProjectForm()
+		return render(request, 'agility/create_project.html', context)
+
+	form = ProjectForm(request.POST)
+	context['form'] = form
+
+	# Validates the form.
+	if not form.is_valid():
+		return render(request, 'agility/create_project.html', context)
+
+	new_project = Project.objects.create(name=form.cleaned_data['name'], \
+					description=form.cleaned_data['description'])
+	new_project.save()
+	return render(request, 'agility/index.html', context)
+
+
+
