@@ -33,7 +33,7 @@ class RegistrationForm(forms.Form):
         return username
 
 class ProjectForm(forms.Form):
-    name = forms.CharField(max_length = 160)
+    name = forms.CharField(max_length = 160,required=True)
     description = forms.CharField(widget = forms.Textarea)
 
     def clean(self):
@@ -49,12 +49,15 @@ class ProjectForm(forms.Form):
         return name
 
 class TaskForm(forms.Form):
-    name = forms.CharField(max_length = 160)
+    name = forms.CharField(max_length = 160, required=True)
     description = forms.CharField(widget = forms.Textarea)
     hours_spent = forms.IntegerField()
     difficulty = forms.IntegerField()
-    user_assigned = forms.ModelChoiceField(queryset=User.objects.all(), empty_label="Select User")
+    user_assigned = forms.ModelChoiceField(queryset=User.objects.all(),\
+                    empty_label="Select User")
     github_link = forms.CharField(max_length=160)
+    sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
+                    empty_label="Select Sprint")
 
     def clean(self):
         cleaned_data = super(TaskForm, self).clean()
@@ -62,4 +65,17 @@ class TaskForm(forms.Form):
             raise forms.ValidationError("Hours spent must be greater than 0 hours")
         if difficulty < 0:
             raise forms.ValidationError("Difficulty must be greater than 0.")
+        return cleaned_data
+
+class SprintForm(forms.Form):
+    start_date = forms.DateField(required=True)
+    end_date = forms.DateField(required=True)
+    retrospective = description = forms.CharField(widget = forms.Textarea)
+    project = forms.ModelChoiceField(queryset=Project.objects.all(),\
+                    empty_label="Select Sprint")
+
+     def clean(self):
+        cleaned_data = super(SprintForm, self).clean()
+        if end_date < start_date:
+            raise forms.ValidationError("End date must be after start date.")
         return cleaned_data
