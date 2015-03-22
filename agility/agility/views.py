@@ -1,11 +1,16 @@
+import datetime
 from agility.models import *
+from agility.forms import *
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 
+@login_required
 def index(request):
 	context = {}
 	context['sprint'] = Sprint.objects.all()
 	return render(request, 'agility/index.html', context)
-
-def register(request):
 
 @transaction.atomic
 def register(request):

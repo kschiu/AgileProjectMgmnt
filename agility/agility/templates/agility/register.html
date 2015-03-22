@@ -1,0 +1,16 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block content %}
+    <div class="container">
+    <p>
+        Register for Agility Project Management
+    </p>
+
+    <form enctype="multipart/form-data" method="post" action="{% url 'register' %}">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="register" />
+    </form>
+{% endblock %}
