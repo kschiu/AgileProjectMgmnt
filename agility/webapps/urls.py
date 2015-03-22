@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^index$', 'agility.views.index', name='index'),
     url(r'^register$', 'agility.views.register', name='register'),
+    url(r'^create_task$', 'agility.views.create_task', name='create_task'),
 )

@@ -7,7 +7,7 @@ class RegistrationForm(forms.Form):
     username   = forms.CharField(max_length = 20)
     email      = forms.CharField(max_length = 30)
     first_name = forms.CharField(max_length = 20)
-    last_name = forms.CharField(max_length = 20)
+    last_name  = forms.CharField(max_length = 20)
     password1  = forms.CharField(max_length = 200, 
                                  label='Password', 
                                  widget = forms.PasswordInput())
@@ -31,3 +31,35 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("Username is already taken.")
 
         return username
+
+class ProjectForm(forms.Form):
+    name = forms.CharField(max_length = 160)
+    description = forms.CharField(widget = forms.Textarea)
+
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+
+        return cleaned_data
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if Project.objects.filter(name_exact=name):
+            raise forms.ValidationError("Project name already taken.")
+
+        return name
+
+class TaskForm(forms.Form):
+    name = forms.CharField(max_length = 160)
+    description = forms.CharField(widget = forms.Textarea)
+    hours_spent = forms.IntegerField()
+    difficulty = forms.IntegerField()
+    user_assigned = forms.ModelChoiceField(queryset=User.objects.all(), empty_label="Select User")
+    github_link = forms.CharField(max_length=160)
+
+    def clean(self):
+        cleaned_data = super(TaskForm, self).clean()
+        if hours_spent < 0:
+            raise forms.ValidationError("Hours spent must be greater than 0 hours")
+        if difficulty < 0:
+            raise forms.ValidationError("Difficulty must be greater than 0.")
+        return cleaned_data

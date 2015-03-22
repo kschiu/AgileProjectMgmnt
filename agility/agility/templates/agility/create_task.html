@@ -1,0 +1,17 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+    <div class="container">
+    <p>
+        Create a Task
+    </p>
+
+    <form enctype="multipart/form-data" method="post" action="{% url 'register' %}" id="create_task">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+    </form>
+
+    <button class="btn btn-default" type="submit" form="create_task" value="Submit">Create Task</button>
+{% endblock %}

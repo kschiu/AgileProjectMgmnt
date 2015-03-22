@@ -39,3 +39,27 @@ def register(request):
 										password=form.cleaned_data['password1'])
 	new_user.save()
 	return render(request, 'agility/index.html', context)
+
+@transaction.atomic
+def create_task(request):
+	context = {}
+
+	if request.method == 'GET':
+		context['form'] = TaskForm()
+		return render(request, 'agility/create_task.html' ,context)
+
+	form = TaskForm(request.POST)
+	context['form'] = form
+
+	# Validates the form.
+	if not form.is_valid():
+		return render(request, 'agility/create_task.html', context)
+
+	new_task = Task.objects.create(name=form.cleaned_data['name'], \
+					description=form.cleaned_data['description'], \
+					hours_spent=form.cleaned_data['hours_spent'], \
+					difficulty=form.cleaned_data['difficulty'], \
+					user_assigned=form.cleaned_data['user_assigned'], \
+					github_link=form.cleaned_data['github_link'])
+	new_task.save()
+	return render(request, 'agility/index.html', context)
