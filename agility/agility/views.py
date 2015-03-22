@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404, render_to_resp
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from django.db import transaction
 
 @login_required
 def index(request):
@@ -38,4 +39,3 @@ def register(request):
 										password=form.cleaned_data['password1'])
 	new_user.save()
 	return render(request, 'agility/index.html', context)
-

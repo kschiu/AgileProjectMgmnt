@@ -49,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'agility.urls'
+ROOT_URLCONF = 'webapps.urls'
 
-WSGI_APPLICATION = 'agility.wsgi.application'
+WSGI_APPLICATION = 'webapps.wsgi.application'
 
 
 # Database

@@ -1,0 +1,13 @@
+
+*.log
+*.pot
+*.pyc
+
+local_settings.py
+
+# Editor backup files
+*~
+*#
+
+# Secret config parameters
+*.ini
