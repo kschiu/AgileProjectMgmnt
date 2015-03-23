@@ -1,0 +1,29 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+    <div class="container">
+    <p>
+        Login to Agility Project Management
+    </p>
+
+    <form method="post" action="login">
+        <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username" value="{{username}}"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        </table>
+        <input type="hidden" name="next" value="index" />
+        <input type="submit" value="Login" />
+        {% csrf_token %}
+    </form>
+        <hr>
+        <p> New user? <br>
+        Please register here:<br>
+        <a href={% url 'register' %}>Register</a></p>
+    </div>    
+{% endblock %}

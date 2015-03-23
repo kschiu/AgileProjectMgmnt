@@ -74,7 +74,7 @@ class SprintForm(forms.Form):
     project = forms.ModelChoiceField(queryset=Project.objects.all(),\
                     empty_label="Select Sprint")
 
-     def clean(self):
+    def clean(self):
         cleaned_data = super(SprintForm, self).clean()
         if end_date < start_date:
             raise forms.ValidationError("End date must be after start date.")

@@ -84,5 +84,22 @@ def create_project(request):
 	new_project.save()
 	return render(request, 'agility/index.html', context)
 
+def create_sprint(reqest):
+	context = {}
+
+	if request.method == 'GET':
+		context['form'] = SprintForm()
+		return render(request, 'agility/create_sprint.html', context)
+
+	form = SprintForm(request.POST)
+	context['form'] = form
+
+	if not form.is_valid():
+		return render(request, 'agility/create_sprint.html', context)
+
+	new_sprint = Sprint.objects.create(name=form.cleaned_data['name'], \
+					description=form.cleaned_data['description'])
+	new_sprint.save()
+	return render(request, 'agility/index.html', context)
 
 
