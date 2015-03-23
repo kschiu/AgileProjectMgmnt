@@ -49,15 +49,15 @@ class ProjectForm(forms.Form):
         return name
 
 class TaskForm(forms.Form):
+    user_assigned = forms.ModelChoiceField(queryset=User.objects.all(),\
+                    empty_label="Select User")
+    sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
+                    empty_label="Select Sprint")
     name = forms.CharField(max_length = 160, required=True)
     description = forms.CharField(widget = forms.Textarea)
     hours_spent = forms.IntegerField()
     difficulty = forms.IntegerField()
-    user_assigned = forms.ModelChoiceField(queryset=User.objects.all(),\
-                    empty_label="Select User")
     github_link = forms.CharField(max_length=160)
-    sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
-                    empty_label="Select Sprint")
 
     def clean(self):
         cleaned_data = super(TaskForm, self).clean()
@@ -68,11 +68,11 @@ class TaskForm(forms.Form):
         return cleaned_data
 
 class SprintForm(forms.Form):
+    project = forms.ModelChoiceField(queryset=Project.objects.all(),\
+                    empty_label="Select Project")
     start_date = forms.DateField(required=True)
     end_date = forms.DateField(required=True)
-    retrospective = description = forms.CharField(widget = forms.Textarea)
-    project = forms.ModelChoiceField(queryset=Project.objects.all(),\
-                    empty_label="Select Sprint")
+    retrospective = forms.CharField(widget = forms.Textarea)
 
     def clean(self):
         cleaned_data = super(SprintForm, self).clean()

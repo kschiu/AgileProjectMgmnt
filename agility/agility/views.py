@@ -84,7 +84,8 @@ def create_project(request):
 	new_project.save()
 	return render(request, 'agility/index.html', context)
 
-def create_sprint(reqest):
+@transaction.atomic
+def create_sprint(request):
 	context = {}
 
 	if request.method == 'GET':
