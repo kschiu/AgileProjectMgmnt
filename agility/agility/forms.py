@@ -63,6 +63,9 @@ class TaskForm(forms.ModelForm):
             raise forms.ValidationError("Difficulty must be greater than 0.")
         return cleaned_data
 
+    class Meta:
+        model = Task
+
 class SprintForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(),\
                     empty_label="Select Project")
@@ -75,3 +78,6 @@ class SprintForm(forms.ModelForm):
         if end_date < start_date:
             raise forms.ValidationError("End date must be after start date.")
         return cleaned_data
+
+    class Meta:
+        model = Sprint

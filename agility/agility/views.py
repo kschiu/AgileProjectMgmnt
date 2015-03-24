@@ -128,3 +128,55 @@ def edit_project(request, id):
 		'id'     : id,
 	}
 	return render(request, 'agility/edit_project.html', context)
+
+@transaction.atomic
+def edit_task(request, id):
+	task = get_object_or_404(Task, id=id)
+	if not task:
+		raise Http404
+
+	if request.method == 'GET':
+		form = TaskForm(instance=task)
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_task.html', context)
+
+	task = Task.objects.select_for_update().get(id=id)
+	form = TaskForm(request.POST, instance=task)
+	if not form.is_valid():
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_task.html', context)
+
+	form.save()
+
+	context = {
+		'message': 'Task Updated',
+		'form'   : form,
+		'id'     : id,
+	}
+	return render(request, 'agility/edit_task.html', context)
+
+@transaction.atomic
+def edit_sprint(request, id):
+	sprint = get_object_or_404(Sprint, id=id)
+	if not sprint:
+		raise Http404
+
+	if request.method == 'GET':
+		form = SprintForm(instance=sprint)
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_sprint.html', context)
+
+	sprint = Sprint.objects.select_for_update().get(id=id)
+	form = SprintForm(request.POST, instance=sprint)
+	if not form.is_valid():
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_sprint.html', context)
+
+	form.save()
+
+	context = {
+		'message': 'Sprint Updated',
+		'form'   : form,
+		'id'     : id,
+	}
+	return render(request, 'agility/edit_sprint.html', context)
