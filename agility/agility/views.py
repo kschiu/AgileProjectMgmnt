@@ -10,7 +10,10 @@ from django.db import transaction
 @login_required
 def index(request):
 	context = {}
-	context['sprint'] = Sprint.objects.all()
+	context['sprints'] = Sprint.objects.all()
+	context['projects'] = Project.objects.all()
+	context['tasks'] = Task.objects.all()
+	context['user'] = request.user
 	return render(request, 'agility/index.html', context)
 
 @transaction.atomic

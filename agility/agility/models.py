@@ -27,6 +27,7 @@ class Task(models.Model):
 	difficulty = models.IntegerField()
 	github_link = models.CharField(max_length=160)
 	sprint = models.ForeignKey(Sprint)
+	#completed = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return 'Task:'+ self.name

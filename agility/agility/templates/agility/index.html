@@ -2,6 +2,23 @@
 
 {% block content %}
 	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<h1> User Dashboard </h1>
+				<div class="panel panel-default">
+					<div class="panel-heading">{{user.username}}</div>
+					<div class="panel-body">
+					{{user.email}}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<h1> {{user.first_name}}'s Projects </h1>
+				{% for project in projects%}
+					<div class="well well-sm">{{project.name}}</div>
+				{% endfor %}
+			</div>
 
+		</div>
 	</div>
 {% endblock %}
