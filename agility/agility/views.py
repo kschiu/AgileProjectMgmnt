@@ -43,6 +43,7 @@ def register(request):
 	new_user.save()
 	return render(request, 'agility/index.html', context)
 
+@login_required
 @transaction.atomic
 def create_task(request):
 	context = {}
@@ -67,6 +68,7 @@ def create_task(request):
 	new_task.save()
 	return render(request, 'agility/index.html', context)
 
+@login_required
 @transaction.atomic
 def create_project(request):
 	context = {}
@@ -87,6 +89,7 @@ def create_project(request):
 	new_project.save()
 	return render(request, 'agility/index.html', context)
 
+@login_required
 @transaction.atomic
 def create_sprint(request):
 	context = {}
@@ -101,11 +104,14 @@ def create_sprint(request):
 	if not form.is_valid():
 		return render(request, 'agility/create_sprint.html', context)
 
-	new_sprint = Sprint.objects.create(name=form.cleaned_data['name'], \
-					description=form.cleaned_data['description'])
+	new_sprint = Sprint.objects.create(project=form.cleaned_data['project'], \
+					start_date=form.cleaned_data['start_date'], \
+					end_date=form.cleaned_data['end_date'], \
+					retrospective=form.cleaned_data['retrospective'])
 	new_sprint.save()
 	return render(request, 'agility/index.html', context)
 
+@login_required
 @transaction.atomic
 def edit_project(request, id):
 	project = get_object_or_404(Project, id=id)
@@ -132,6 +138,7 @@ def edit_project(request, id):
 	}
 	return render(request, 'agility/edit_project.html', context)
 
+@login_required
 @transaction.atomic
 def edit_task(request, id):
 	task = get_object_or_404(Task, id=id)
@@ -158,6 +165,7 @@ def edit_task(request, id):
 	}
 	return render(request, 'agility/edit_task.html', context)
 
+@login_required
 @transaction.atomic
 def edit_sprint(request, id):
 	sprint = get_object_or_404(Sprint, id=id)
@@ -183,3 +191,30 @@ def edit_sprint(request, id):
 		'id'     : id,
 	}
 	return render(request, 'agility/edit_sprint.html', context)
+
+def view_project(request, id):
+	context = {}
+	project = get_object_or_404(Project, id=id)
+	if not project:
+		raise Http404
+	context['project'] = project
+
+	return render(request, 'agility/view_project.html', context)
+
+def view_sprint(request, id):
+	context = {}
+	sprint = get_object_or_404(Sprint, id=id)
+	if not sprint:
+		raise Http404
+	context['sprint'] = sprint
+
+	return render(request, 'agility/view_sprint.html', context)
+
+def view_task(request, id):
+	context = {}
+	task = get_object_or_404(Task, id=id)
+	if not task:
+		raise Http404
+	context['task'] = task
+
+	return render(request, 'agility/view_task.html', context)

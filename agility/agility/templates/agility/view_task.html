@@ -1,0 +1,16 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+	<div class="container">
+		<h1>View Task</h1>
+			<div class="panel panel-default">
+				<div class="panel-heading">{{task.name}}</div>
+				<div class="panel-body">
+					{{task.description}}
+					{{task.hours_spent}}
+					{{task.difficulty}}
+					{{task.github_link}}
+				</div>
+			</div>
+	</div>
+{% endblock %}

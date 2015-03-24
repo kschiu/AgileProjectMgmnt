@@ -57,6 +57,8 @@ class TaskForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(TaskForm, self).clean()
+        hours_spent = cleaned_data.get('hours_spent')
+        difficulty = cleaned_data.get('difficulty')
         if hours_spent < 0:
             raise forms.ValidationError("Hours spent must be greater than 0 hours")
         if difficulty < 0:
@@ -75,6 +77,8 @@ class SprintForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(SprintForm, self).clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
         if end_date < start_date:
             raise forms.ValidationError("End date must be after start date.")
         return cleaned_data

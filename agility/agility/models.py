@@ -10,8 +10,8 @@ class Project(models.Model):
 		return 'Project:'+ self.name
 
 class Sprint(models.Model):
-	start_date = models.DateTimeField()
-	end_date = models.DateTimeField()
+	start_date = models.DateField()
+	end_date = models.DateField()
 	retrospective = models.TextField()
 	project = models.ForeignKey(Project)
 
