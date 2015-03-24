@@ -15,4 +15,6 @@ urlpatterns = patterns('',
 	url(r'^create_sprint$', 'agility.views.create_sprint', name='create_sprint'),
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name':'agility/login.html'}, name='login'),
     url(r'^edit_project/(?P<id>\d+)$', 'agility.views.edit_project', name='edit_project'),
+    url(r'^edit_task/(?P<id>\d+)$', 'agility.views.edit_task', name='edit_task'),
+    url(r'^edit_sprint/(?P<id>\d+)$', 'agility.views.edit_sprint', name='edit_sprint'),
 )
