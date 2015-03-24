@@ -64,6 +64,7 @@ def create_task(request):
 					hours_spent=form.cleaned_data['hours_spent'], \
 					difficulty=form.cleaned_data['difficulty'], \
 					user_assigned=form.cleaned_data['user_assigned'], \
+					sprint=form.cleaned_data['sprint'],\
 					github_link=form.cleaned_data['github_link'])
 	new_task.save()
 	return render(request, 'agility/index.html', context)
