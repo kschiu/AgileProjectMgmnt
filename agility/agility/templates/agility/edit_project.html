@@ -1,0 +1,19 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+<div class="container">
+    {% if message %}
+		<span class="label label-primary">{{message}}</span>
+	{% endif %}
+    <h2>Update Project</h2>
+
+    <form enctype="multipart/form-data" method="post" action="{% url 'edit_project' id %}" id="edit_project">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+    </form>
+
+    <button class="btn btn-default" type="submit" form="edit_project" value="Submit">Edit Project</button>
+</div>
+{% endblock %}

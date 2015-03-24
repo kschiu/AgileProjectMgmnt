@@ -103,4 +103,28 @@ def create_sprint(request):
 	new_sprint.save()
 	return render(request, 'agility/index.html', context)
 
+@transaction.atomic
+def edit_project(request, id):
+	project = get_object_or_404(Project, id=id)
+	if not project:
+		raise Http404
 
+	if request.method == 'GET':
+		form = ProjectForm(instance=project)
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_project.html', context)
+
+	project = Project.objects.select_for_update().get(id=id)
+	form = ProjectForm(request.POST, instance=project)
+	if not form.is_valid():
+		context = { 'form': form, 'id': id }
+		return render(request, 'agility/edit_project.html', context)
+
+	form.save()
+
+	context = {
+		'message': 'Project Updated',
+		'form'   : form,
+		'id'     : id,
+	}
+	return render(request, 'agility/edit_project.html', context)

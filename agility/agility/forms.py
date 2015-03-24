@@ -32,7 +32,7 @@ class RegistrationForm(forms.Form):
 
         return username
 
-class ProjectForm(forms.Form):
+class ProjectForm(forms.ModelForm):
     name = forms.CharField(max_length = 160,required=True)
     description = forms.CharField(widget = forms.Textarea)
 
@@ -41,14 +41,10 @@ class ProjectForm(forms.Form):
 
         return cleaned_data
 
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if Project.objects.filter(name_exact=name):
-            raise forms.ValidationError("Project name already taken.")
+    class Meta:
+        model = Project
 
-        return name
-
-class TaskForm(forms.Form):
+class TaskForm(forms.ModelForm):
     user_assigned = forms.ModelChoiceField(queryset=User.objects.all(),\
                     empty_label="Select User")
     sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
@@ -67,7 +63,7 @@ class TaskForm(forms.Form):
             raise forms.ValidationError("Difficulty must be greater than 0.")
         return cleaned_data
 
-class SprintForm(forms.Form):
+class SprintForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(),\
                     empty_label="Select Project")
     start_date = forms.DateField(required=True)
