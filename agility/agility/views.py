@@ -41,6 +41,7 @@ def register(request):
 										last_name=form.cleaned_data['last_name'],
 										password=form.cleaned_data['password1'])
 	new_user.save()
+	context['user'] = new_user
 	return render(request, 'agility/index.html', context)
 
 @login_required

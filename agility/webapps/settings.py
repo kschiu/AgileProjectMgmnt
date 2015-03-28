@@ -85,3 +85,4 @@ STATIC_URL = '/static/'
 
 #LOGIN URL REDIRECTS
 LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/index'
