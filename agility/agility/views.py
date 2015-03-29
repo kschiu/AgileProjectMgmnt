@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.db import transaction
+from django.core.urlresolvers import reverse
 
 @login_required
 def index(request):
@@ -89,7 +90,7 @@ def create_project(request):
 	new_project = Project.objects.create(name=form.cleaned_data['name'], \
 					description=form.cleaned_data['description'])
 	new_project.save()
-	return render(request, 'agility/index.html', context)
+	return redirect(reverse('index'))
 
 @login_required
 @transaction.atomic
