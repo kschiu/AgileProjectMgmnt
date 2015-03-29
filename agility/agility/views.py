@@ -112,7 +112,7 @@ def create_sprint(request):
 					end_date=form.cleaned_data['end_date'], \
 					retrospective=form.cleaned_data['retrospective'])
 	new_sprint.save()
-	return render(request, 'agility/index.html', context)
+	return redirect(reverse('view_project', kwargs={'id':form.cleaned_data['project'].id}))
 
 @login_required
 @transaction.atomic
@@ -201,7 +201,7 @@ def view_project(request, id):
 	if not project:
 		raise Http404
 	context['project'] = project
-
+	context['sprints'] = Sprint.objects.filter(project=project).all().order_by('-start_date')
 	return render(request, 'agility/view_project.html', context)
 
 def view_sprint(request, id):

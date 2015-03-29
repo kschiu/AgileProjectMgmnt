@@ -9,5 +9,13 @@
 					{{project.description}}
 				</div>
 			</div>
+		<h2> Project Sprints </h2>
+		{% for sprint in sprints%}
+			<div class="well well-lg">
+				<a href={% url 'view_sprint' sprint.id %}> Sprint starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
+				</a>
+			</div>
+		{% endfor %}
+
 	</div>
 {% endblock %}

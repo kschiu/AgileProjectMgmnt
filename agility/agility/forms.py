@@ -74,7 +74,7 @@ class SprintForm(forms.ModelForm):
                     empty_label="Select Project")
     start_date = forms.DateField(required=True, widget=SelectDateWidget())
     end_date = forms.DateField(required=True, widget=SelectDateWidget())
-    retrospective = forms.CharField(widget = forms.Textarea)
+    retrospective = forms.CharField(widget = forms.Textarea, required=False)
 
     def clean(self):
         cleaned_data = super(SprintForm, self).clean()
