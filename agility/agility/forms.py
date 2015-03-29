@@ -1,5 +1,6 @@
 from django import forms
 
+from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.models import User
 from models import *
 
@@ -71,8 +72,8 @@ class TaskForm(forms.ModelForm):
 class SprintForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(),\
                     empty_label="Select Project")
-    start_date = forms.DateField(required=True)
-    end_date = forms.DateField(required=True)
+    start_date = forms.DateField(required=True, widget=SelectDateWidget())
+    end_date = forms.DateField(required=True, widget=SelectDateWidget())
     retrospective = forms.CharField(widget = forms.Textarea)
 
     def clean(self):

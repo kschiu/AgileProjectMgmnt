@@ -2,9 +2,10 @@
 
 {% block content %}
 	<div class="container">
+		<h1 class="text-center"> {{user.first_name}}'s Project Dashboard </h1>
 		<div class="row">
 			<div class="col-md-3">
-				<h1> User Dashboard </h1>
+				<h2> {{user.first_name}}'s Profile </h2>
 				<div class="panel panel-default">
 					<div class="panel-heading">{{user.username}}</div>
 					<div class="panel-body">
@@ -13,17 +14,25 @@
 				</div>
 			</div>
 			<div class="col-md-9">
-				<h1> {{user.first_name}}'s Projects 
+				<h2> {{user.first_name}}'s Projects 
 				<div class="pull-right">
 					<form method="get" action={% url 'create_project' %}>
 						<button class="btn btn-success" type="submit">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Project</button>
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Project
+						</button>
 					</form>
 				</div>
-				</h1>
+				</h2>
 				{% for project in projects%}
 					<div class="well well-lg">
 						<a href={% url 'view_project' project.id %}>{{project.name}}</a>
+						<div class="pull-right">
+							<form method="get" action={% url 'create_sprint' %}>
+								<button class="btn btn-success" type="submit">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Sprint
+								</button>
+							</form>
+						</div>
 					</div>
 				{% endfor %}
 			</div>

@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^index$', 'agility.views.index', name='index'),
     url(r'^register$', 'agility.views.register', name='register'),
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name':'agility/login.html'}, name='login'),
-    url(r'^logout$', 'django.contrib.auth.views.logout'),
+    url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': '/login'}, name='logout'),
     #Project
     url(r'^create_project$', 'agility.views.create_project', name='create_project'),
     url(r'^edit_project/(?P<id>\d+)$', 'agility.views.edit_project', name='edit_project'),
