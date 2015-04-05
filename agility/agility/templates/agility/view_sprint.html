@@ -18,5 +18,14 @@
 					Starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
 				</div>
 			</div>
+		<h1>Tasks in this Sprint:</h1>
+		{% for task in tasks%}
+			<div class="well well-lg">
+				<a href={% url 'view_task' task.id %}> 
+					Task: {{task.name}} 
+				</a>
+				<p>{{task.description}}
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}

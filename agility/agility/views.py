@@ -69,7 +69,7 @@ def create_task(request):
 					sprint=form.cleaned_data['sprint'],\
 					github_link=form.cleaned_data['github_link'])
 	new_task.save()
-	return render(request, 'agility/index.html', context)
+	return redirect(reverse('index'))
 
 @login_required
 @transaction.atomic
@@ -210,6 +210,7 @@ def view_sprint(request, id):
 	if not sprint:
 		raise Http404
 	context['sprint'] = sprint
+	context['tasks'] = Task.objects.filter(sprint=sprint).all()
 
 	return render(request, 'agility/view_sprint.html', context)
 
