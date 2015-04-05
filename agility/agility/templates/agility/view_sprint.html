@@ -18,13 +18,22 @@
 					Starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
 				</div>
 			</div>
-		<h1>Tasks in this Sprint:</h1>
-		{% for task in tasks%}
+		<h1>Upcoming tasks in this Sprint:</h1>
+		{% for task in upcoming_tasks%}
 			<div class="well well-lg">
 				<a href={% url 'view_task' task.id %}> 
 					Task: {{task.name}} 
 				</a>
 				<p>{{task.description}}
+			</div>
+		{% endfor %}
+		<h1>Completed tasks in this Sprint:</h1>
+		{% for t in completed_tasks%}
+			<div class="well well-lg">
+				<a href={% url 'view_task' t.id %}> 
+					Task: {{t.name}} 
+				</a>
+				<p>{{t.description}}
 			</div>
 		{% endfor %}
 	</div>

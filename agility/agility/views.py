@@ -67,9 +67,10 @@ def create_task(request):
 					difficulty=form.cleaned_data['difficulty'], \
 					user_assigned=form.cleaned_data['user_assigned'], \
 					sprint=form.cleaned_data['sprint'],\
-					github_link=form.cleaned_data['github_link'])
+					github_link=form.cleaned_data['github_link'],\
+					completed=form.cleaned_data['completed'])
 	new_task.save()
-	return redirect(reverse('index'))
+	return redirect(reverse('view_task', kwargs={'id':new_task.id}))
 
 @login_required
 @transaction.atomic
@@ -210,8 +211,8 @@ def view_sprint(request, id):
 	if not sprint:
 		raise Http404
 	context['sprint'] = sprint
-	context['tasks'] = Task.objects.filter(sprint=sprint).all()
-
+	context['upcoming_tasks'] = Task.objects.filter(sprint=sprint, completed=False).all()
+	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()
 	return render(request, 'agility/view_sprint.html', context)
 
 def view_task(request, id):

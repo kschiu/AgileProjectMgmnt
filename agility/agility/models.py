@@ -16,8 +16,9 @@ class Sprint(models.Model):
 	project = models.ForeignKey(Project)
 
 	def __unicode__(self):
-		return 'Sprint:'+ (self.start_date).strftime('%m/%d/%Y') \
-					+ " " + (self.end_date).strftime('%m/%d/%Y')  
+		return self.project.name + ' Sprint: '+ \
+				(self.start_date).strftime('%m/%d') \
+				+ "-" + (self.end_date).strftime('%m/%d')  
 
 class Task(models.Model):
 	name = models.CharField(max_length=160)
@@ -27,7 +28,7 @@ class Task(models.Model):
 	difficulty = models.IntegerField()
 	github_link = models.CharField(max_length=160)
 	sprint = models.ForeignKey(Sprint)
-	#completed = models.BooleanField(default=False)
+	completed = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return 'Task:'+ self.name

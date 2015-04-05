@@ -54,7 +54,8 @@ class TaskForm(forms.ModelForm):
     description = forms.CharField(widget = forms.Textarea)
     hours_spent = forms.IntegerField()
     difficulty = forms.IntegerField()
-    github_link = forms.CharField(max_length=160)
+    github_link = forms.CharField(max_length=160, required=False)
+    completed = forms.BooleanField(required=False)
 
     def clean(self):
         cleaned_data = super(TaskForm, self).clean()
