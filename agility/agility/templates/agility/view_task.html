@@ -11,6 +11,13 @@
 					{{task.difficulty}}
 					{{task.github_link}}
 				</div>
+				<div class="panel-footer">
+					<form method="get" action={% url 'edit_task' task.id %}>
+						<button class="btn btn-sm btn-primary" type="submit">
+							Edit Task
+						</button>
+					</form>
+				</div>
 			</div>
 	</div>
 {% endblock %}

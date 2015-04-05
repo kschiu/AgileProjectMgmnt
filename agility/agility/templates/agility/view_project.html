@@ -8,6 +8,13 @@
 				<div class="panel-body">
 					{{project.description}}
 				</div>
+				<div class="panel-footer">
+					<form method="get" action={% url 'edit_project' project.id %}>
+						<button class="btn btn-sm btn-primary" type="submit">
+							Edit Project
+						</button>
+					</form>
+				</div>
 			</div>
 		<h2> Project Sprints </h2>
 		{% for sprint in sprints%}
