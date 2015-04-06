@@ -13,7 +13,7 @@ def index(request):
 	context = {}
 	context['sprints'] = Sprint.objects.all()
 	context['projects'] = Project.objects.all()
-	context['tasks'] = Task.objects.all()
+	context['upcoming_tasks'] = Task.objects.filter(user_assigned=request.user, completed=False).all()
 	context['user'] = request.user
 	return render(request, 'agility/index.html', context)
 
