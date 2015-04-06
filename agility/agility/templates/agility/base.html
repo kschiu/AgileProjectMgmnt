@@ -24,8 +24,19 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 <li><a href={% url 'index' %}>Home</a></li>
-                <li><a href={% url 'create_project' %}>New Project</a></li>
 
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Create New  
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href={% url 'create_project' %}>New Project</a></li>
+                        <li><a href={% url 'create_sprint' %}>New Sprint</a></li>
+                        <li><a href={% url 'create_task' %}>New Task</a></li>
+                    </ul>
+                </li>
+                    
                 </ul>
             </div>
         </div>
@@ -46,5 +57,8 @@
     </footer>
 
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </html>

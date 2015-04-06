@@ -223,3 +223,18 @@ def view_task(request, id):
 	context['task'] = task
 
 	return render(request, 'agility/view_task.html', context)
+
+def delete_project(request, id):
+	project = get_object_or_404(Project, id=id)
+	project.delete()
+	return redirect(reverse('index'))
+
+def delete_sprint(request, id):
+	sprint = get_object_or_404(Sprint, id=id)
+	sprint.delete()
+	return redirect(reverse('index'))
+
+def delete_task(request, id):
+	task = get_object_or_404(Task, id=id)
+	task.delete
+	return redirect(reverse('index'))

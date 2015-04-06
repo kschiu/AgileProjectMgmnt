@@ -17,11 +17,24 @@
 					Starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
 				</div>
 				<div class="panel-footer">
-					<form method="get" action={% url 'edit_sprint' sprint.id %}>
-						<button class="btn btn-sm btn-primary" type="submit">
-							Edit Sprint
-						</button>
-					</form>
+					<div class="row">
+						<div class="col-md-6">
+							<form method="get" action={% url 'edit_sprint' sprint.id %}>
+								<button class="btn btn-sm btn-primary" type="submit">
+									Edit Sprint
+								</button>
+							</form>
+						</div>
+						<div class="col-md-6">
+							<div class="pull-right">
+								<form method="get" action={% url 'delete_sprint' sprint.id %}>
+									<button class="btn btn-sm btn-danger" type="submit">
+										Delete Sprint
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>					
 				</div>
 			</div>
 		<h1>Upcoming tasks in this Sprint:</h1>

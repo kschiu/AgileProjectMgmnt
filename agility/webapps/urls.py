@@ -16,12 +16,15 @@ urlpatterns = patterns('',
     url(r'^create_project$', 'agility.views.create_project', name='create_project'),
     url(r'^edit_project/(?P<id>\d+)$', 'agility.views.edit_project', name='edit_project'),
     url(r'^view_project/(?P<id>\d+)$', 'agility.views.view_project', name='view_project'),
+    url(r'^delete_project/(?P<id>\d+)$', 'agility.views.delete_project', name='delete_project'),
     #Tasks
     url(r'^create_task$', 'agility.views.create_task', name='create_task'),
     url(r'^edit_task/(?P<id>\d+)$', 'agility.views.edit_task', name='edit_task'),
     url(r'^view_task/(?P<id>\d+)$', 'agility.views.view_task', name='view_task'),
+    url(r'^delete_task/(?P<id>\d+)$', 'agility.views.delete_task', name='delete_task'),
     #Sprint
     url(r'^create_sprint$', 'agility.views.create_sprint', name='create_sprint'),
     url(r'^edit_sprint/(?P<id>\d+)$', 'agility.views.edit_sprint', name='edit_sprint'),
     url(r'^view_sprint/(?P<id>\d+)$', 'agility.views.view_sprint', name='view_sprint'),
+    url(r'^delete_sprint/(?P<id>\d+)$', 'agility.views.delete_sprint', name='delete_sprint'),
 )
