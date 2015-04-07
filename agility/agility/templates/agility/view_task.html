@@ -1,23 +1,36 @@
 {% extends "agility/base.html" %}
 
 {% block content %}
-	<div class="container">
-		<h1>View Task</h1>
-			<div class="panel panel-default">
-				<div class="panel-heading">{{task.name}}</div>
-				<div class="panel-body">
-					{{task.description}}
-					{{task.hours_spent}}
-					{{task.difficulty}}
-					{{task.github_link}}
-				</div>
-				<div class="panel-footer">
+<div class="container">
+	<h1>View Task</h1>
+	<div class="panel panel-default">
+		<div class="panel-heading">{{task.name}}</div>
+		<div class="panel-body">
+			{{task.description}}
+			{{task.hours_spent}}
+			{{task.difficulty}}
+			{{task.github_link}}
+		</div>
+		<div class="panel-footer">
+			<div class="row">
+				<div class="col-md-6">
 					<form method="get" action={% url 'edit_task' task.id %}>
 						<button class="btn btn-sm btn-primary" type="submit">
 							Edit Task
 						</button>
-					</form>
+			</form>
+				</div>
+				<div class="col-md-6">
+					<div class="pull-right">
+						<form method="get" action={% url 'delete_task' task.id %}>
+							<button class="btn btn-sm btn-danger" type="submit">
+								Delete Task
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
+		</div>
 	</div>
+</div>
 {% endblock %}

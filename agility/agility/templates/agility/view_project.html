@@ -1,28 +1,41 @@
 {% extends "agility/base.html" %}
 
 {% block content %}
-	<div class="container">
-		<h1>View Project</h1>
-			<div class="panel panel-default">
-				<div class="panel-heading">{{project.name}}</div>
-				<div class="panel-body">
-					{{project.description}}
-				</div>
-				<div class="panel-footer">
+<div class="container">
+	<h1>View Project</h1>
+	<div class="panel panel-default">
+		<div class="panel-heading">{{project.name}}</div>
+		<div class="panel-body">
+			{{project.description}}
+		</div>
+		<div class="panel-footer">
+			<div class="row">
+				<div class="col-md-6">
 					<form method="get" action={% url 'edit_project' project.id %}>
 						<button class="btn btn-sm btn-primary" type="submit">
 							Edit Project
 						</button>
 					</form>
 				</div>
-			</div>
-		<h2> Project Sprints </h2>
-		{% for sprint in sprints%}
-			<div class="well well-lg">
-				<a href={% url 'view_sprint' sprint.id %}> Sprint starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
-				</a>
-			</div>
-		{% endfor %}
+				<div class="col-md-6">
+					<div class="pull-right">
+						<form method="get" action={% url 'delete_project' project.id %}>
+							<button class="btn btn-sm btn-danger" type="submit">
+								Delete Task
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>					
+		</div>
 
 	</div>
+	<h2> Project Sprints </h2>
+	{% for sprint in sprints%}
+		<div class="well well-lg">
+			<a href={% url 'view_sprint' sprint.id %}> Sprint starting: {{sprint.start_date}}, ending: {{sprint.end_date}}
+			</a>
+		</div>
+	{% endfor %}
+</div>
 {% endblock %}

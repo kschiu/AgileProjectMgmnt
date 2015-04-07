@@ -7,10 +7,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.db import transaction
 from django.core.urlresolvers import reverse
+from django.contrib.messages import error
 
 @login_required
-def index(request):
+def index(request, msg=None):
 	context = {}
+	if (msg != None):
+		context['msg'] = msg
 	context['sprints'] = Sprint.objects.all()
 	context['projects'] = Project.objects.all()
 	context['upcoming_tasks'] = Task.objects.filter(user_assigned=request.user, completed=False).all()
@@ -227,14 +230,17 @@ def view_task(request, id):
 def delete_project(request, id):
 	project = get_object_or_404(Project, id=id)
 	project.delete()
+	error(request, 'Project successfully deleted!')
 	return redirect(reverse('index'))
 
 def delete_sprint(request, id):
 	sprint = get_object_or_404(Sprint, id=id)
 	sprint.delete()
+	error(request, 'Sprint successfully deleted!')
 	return redirect(reverse('index'))
 
 def delete_task(request, id):
 	task = get_object_or_404(Task, id=id)
-	task.delete
+	task.delete()
+	error(request, 'Task successfully deleted!')
 	return redirect(reverse('index'))
