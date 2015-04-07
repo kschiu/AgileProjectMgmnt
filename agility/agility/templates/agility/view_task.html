@@ -11,10 +11,12 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">{{task.name}}</div>
 		<div class="panel-body">
-			{{task.description}}
-			{{task.hours_spent}}
-			{{task.difficulty}}
-			{{task.github_link}}
+			<p>Description: {{task.description}}</p>
+			<p>Hours Spent: {{task.hours_spent}}</p>
+			<p>Difficulty: {{task.difficulty}}</p>
+			{% if task.github_link %}
+			<a href={{task.github_link}}>Link to GitHub Branch</a>
+			{% endif %}
 		</div>
 		<div class="panel-footer">
 			<div class="row">

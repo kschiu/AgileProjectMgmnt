@@ -38,7 +38,6 @@ def register(request):
 	if not form.is_valid():
 		return render(request, 'agility/register.html', context)
 
-	# At this point, the form data is valid.  Register the user.
 	new_user = User.objects.create_user(username=form.cleaned_data['username'],
 										email=form.cleaned_data['email'],
 										first_name=form.cleaned_data['first_name'],
@@ -60,7 +59,6 @@ def create_task(request):
 	form = TaskForm(request.POST)
 	context['form'] = form
 
-	# Validates the form.
 	if not form.is_valid():
 		return render(request, 'agility/create_task.html', context)
 
@@ -87,7 +85,6 @@ def create_project(request):
 	form = ProjectForm(request.POST)
 	context['form'] = form
 
-	# Validates the form.
 	if not form.is_valid():
 		return render(request, 'agility/create_project.html', context)
 
@@ -199,6 +196,7 @@ def edit_sprint(request, id):
 	}
 	return render(request, 'agility/edit_sprint.html', context)
 
+@login_required
 def view_project(request, id):
 	context = {}
 	project = get_object_or_404(Project, id=id)
@@ -208,6 +206,7 @@ def view_project(request, id):
 	context['sprints'] = Sprint.objects.filter(project=project).all().order_by('-start_date')
 	return render(request, 'agility/view_project.html', context)
 
+@login_required
 def view_sprint(request, id):
 	context = {}
 	sprint = get_object_or_404(Sprint, id=id)
@@ -218,6 +217,7 @@ def view_sprint(request, id):
 	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()
 	return render(request, 'agility/view_sprint.html', context)
 
+@login_required
 def view_task(request, id):
 	context = {}
 	context['request'] = request
@@ -236,24 +236,32 @@ def view_task(request, id):
 
 	return render(request, 'agility/view_task.html', context)
 
+@login_required
+@transaction.atomic
 def delete_project(request, id):
 	project = get_object_or_404(Project, id=id)
 	project.delete()
 	error(request, 'Project successfully deleted!')
 	return redirect(reverse('index'))
 
+@login_required
+@transaction.atomic
 def delete_sprint(request, id):
 	sprint = get_object_or_404(Sprint, id=id)
 	sprint.delete()
 	error(request, 'Sprint successfully deleted!')
 	return redirect(reverse('index'))
 
+@login_required
+@transaction.atomic
 def delete_task(request, id):
 	task = get_object_or_404(Task, id=id)
 	task.delete()
 	error(request, 'Task successfully deleted!')
 	return redirect(reverse('index'))
 
+@login_required
+@transaction.atomic
 def add_comment(request, id):
 	context = {}
 
@@ -272,6 +280,8 @@ def add_comment(request, id):
 	new_comment.save()
 	return redirect(reverse('view_task', kwargs={'id': id}))
 
+@login_required
+@transaction.atomic
 def delete_comment(request, id):
 	context = {}
 	comment = get_object_or_404(TaskComment, id=id)
@@ -284,3 +294,5 @@ def delete_comment(request, id):
 
 	error(request, "Cannot delete another user's task")
 	return redirect(reverse('view_task', kwargs={'id': task_id}))
+
+

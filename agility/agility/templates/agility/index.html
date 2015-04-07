@@ -17,14 +17,10 @@
 				{{user.email}}
 				</div>
 			</div>
-			<form method="get" action={% url 'create_sprint' %}>
-				<button class="btn btn-success" type="submit">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Sprint
-				</button>
-			</form>
 		</div>
 		<div class="col-md-9">
-			<h2> {{user.first_name}}'s Projects 
+			{% if projects %}
+			<h2>Projects 
 			<div class="pull-right">
 				<form method="get" action={% url 'create_project' %}>
 					<button class="btn btn-success" type="submit">
@@ -38,7 +34,35 @@
 					<a href={% url 'view_project' project.id %}>{{project.name}}</a>
 				</div>
 			{% endfor %}
-			<h2>{{user.first_name}}'s Upcoming Tasks 
+			{% else %}
+			<h3><em>{{user.first_name}} has no projects.</em></h3>
+			{% endif %}
+			<hr>
+
+			{% if sprints %}
+			<h2>Upcoming Sprints 
+			<div class="pull-right">
+			<form method="get" action={% url 'create_sprint' %}>
+				<button class="btn btn-success" type="submit">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Sprint
+				</button>
+			</form>
+			</div>	
+			</h2>
+			{% for sprint in sprints %}
+				<div class="well well-lg">
+					<a href={% url 'view_sprint' sprint.id %}>
+						{{sprint.project.name}} sprint starting {{sprint.start_date}} and ending {{sprint.end_date}}
+					</a>
+				</div>
+			{% endfor %}
+			{% else %}
+			<h3><em>{{user.first_name}} has no sprints.</em></h3>
+			{% endif %}
+
+			<hr>
+			{% if upcoming_tasks %}
+			<h2>Upcoming Tasks 
 			<div class="pull-right">
 				<form method="get" action={% url 'create_task' %}>
 					<button class="btn btn-success" type="submit">
@@ -52,6 +76,9 @@
 					<a href={% url 'view_task' task.id %}>{{task.name}}</a>
 				</div>
 			{% endfor %}
+			{% else %}
+			<h3><em>{{user.first_name}} has no upcoming tasks.</em></h3>
+			{% endif %}
 		</div>
 
 	</div>
