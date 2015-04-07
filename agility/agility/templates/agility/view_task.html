@@ -49,6 +49,7 @@
 		</div>
 	</div>
 	{% if comments %}
+	<hr>
 	<div class="row">
 		<div class="col-md-6">
 		</div>
@@ -60,7 +61,9 @@
 		    		{{comment.text}}
 		    	</div>
 		    	<div class="panel-footer">
+		    		<p class="text-right">
 		    		Posted on: {{comment.date_time}} by {{comment.user.username}}
+		    		</p>
 		    	</div>
 		    </div>
 		    {% endfor %}
