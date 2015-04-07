@@ -224,7 +224,7 @@ def view_task(request, id):
 	if not task:
 		raise Http404
 	context['task'] = task
-	# context['comments'] = TaskComment.objects.get(task=task)
+	context['comments'] = TaskComment.objects.filter(task=task).all().order_by('date_time')
 
 	if request.method == 'GET':
 		context['form'] = CommentForm()

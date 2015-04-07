@@ -43,10 +43,29 @@
 		    </form>
 		</div>
 		<div class="col-md-6">
-	    <div class="pull-right">
-	    <button class="btn btn-default" type="submit" form="add_comment" value="Submit">Add Comment</button>
-		</div>
+		    <div class="pull-right">
+	    		<button class="btn btn-default" type="submit" form="add_comment" value="Submit">Add Comment</button>
+			</div>
 		</div>
 	</div>
+	{% if comments %}
+	<div class="row">
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-6">
+			<h2>Comments</h2>
+		    {% for comment in comments %}
+		    <div class="panel panel-default">
+		    	<div class="panel-body">
+		    		{{comment.text}}
+		    	</div>
+		    	<div class="panel-footer">
+		    		Posted on: {{comment.date_time}} by {{comment.user.username}}
+		    	</div>
+		    </div>
+		    {% endfor %}
+		</div>
+	</div>
+	{% endif %}
 </div>
 {% endblock %}
