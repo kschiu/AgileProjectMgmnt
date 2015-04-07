@@ -18,7 +18,7 @@
 						<button class="btn btn-sm btn-primary" type="submit">
 							Edit Task
 						</button>
-			</form>
+					</form>
 				</div>
 				<div class="col-md-6">
 					<div class="pull-right">
@@ -61,9 +61,22 @@
 		    		{{comment.text}}
 		    	</div>
 		    	<div class="panel-footer">
+		    		<div class="row">
+		    			<div class="col-md-3">
+		    		{% if request.user == comment.user %}
+		    		<form method="get" action={% url 'delete_comment' comment.id %}>
+						<button class="btn btn-xs btn-danger" type="submit">
+							Delete
+						</button>
+					</form>
+					{% endif %}
+						</div>
+						<div class="col-md-9">
 		    		<p class="text-right">
 		    		Posted on: {{comment.date_time}} by {{comment.user.username}}
 		    		</p>
+		    	</div>
+		    </div>
 		    	</div>
 		    </div>
 		    {% endfor %}

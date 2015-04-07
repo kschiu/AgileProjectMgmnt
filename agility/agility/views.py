@@ -220,6 +220,7 @@ def view_sprint(request, id):
 
 def view_task(request, id):
 	context = {}
+	context['request'] = request
 	task = get_object_or_404(Task, id=id)
 	if not task:
 		raise Http404
@@ -270,3 +271,16 @@ def add_comment(request, id):
 					
 	new_comment.save()
 	return redirect(reverse('view_task', kwargs={'id': id}))
+
+def delete_comment(request, id):
+	context = {}
+	comment = get_object_or_404(TaskComment, id=id)
+	task_id = comment.task.id
+
+	if comment.user == request.user:
+		comment.delete()
+		error(request, "Comment successfully deleted!")
+		return redirect(reverse('view_task', kwargs={'id': task_id}))
+
+	error(request, "Cannot delete another user's task")
+	return redirect(reverse('view_task', kwargs={'id': task_id}))

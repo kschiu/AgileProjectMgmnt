@@ -94,7 +94,8 @@ class CommentForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(CommentForm, self).clean()
-
+        if len(cleaned_data.get('text')) > 160:
+            raise forms.ValidationError("Comment is too long.")
         return cleaned_data
 
     class Meta:
