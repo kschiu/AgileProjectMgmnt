@@ -33,3 +33,11 @@ class Task(models.Model):
 	def __unicode__(self):
 		return 'Task:'+ self.name
 
+class TaskComment(models.Model):
+	text = models.CharField(max_length=160)
+	user = models.ForeignKey(User)
+	task = models.ForeignKey(Task)
+	date_time = models.DateTimeField()
+
+	def __unicode__(self):
+		return 'User:'+ self.user.username + '\n' + self.text
