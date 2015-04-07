@@ -32,5 +32,21 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+		    <form enctype="multipart/form-data" method="post" action="{% url 'add_comment' task.id %}" id="add_comment">
+		        <table>
+		            {{form}}
+		        </table>
+		        {% csrf_token %}
+		    </form>
+		</div>
+		<div class="col-md-6">
+	    <div class="pull-right">
+	    <button class="btn btn-default" type="submit" form="add_comment" value="Submit">Add Comment</button>
+		</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

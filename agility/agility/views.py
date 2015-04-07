@@ -224,8 +224,15 @@ def view_task(request, id):
 	if not task:
 		raise Http404
 	context['task'] = task
+	# context['comments'] = TaskComment.objects.get(task=task)
 
-	# NEED TO INCLUDE COMMENTS
+	if request.method == 'GET':
+		context['form'] = CommentForm()
+		return render(request, 'agility/view_task.html', context)
+
+	form = CommentForm(request.POST)
+	context['form'] = form
+
 	return render(request, 'agility/view_task.html', context)
 
 def delete_project(request, id):
@@ -256,7 +263,7 @@ def add_comment(request, id):
 	if not form.is_valid():
 		return redirect(reverse('view_task', kwargs={'id': id}))
 
-	new_comment = TaskComment.objects.create(name=form.cleaned_data['text'], \
+	new_comment = TaskComment.objects.create(text=form.cleaned_data['text'], \
 						user=request.user, \
 						task=Task.objects.get(id=id),\
 						date_time=datetime.datetime.now())

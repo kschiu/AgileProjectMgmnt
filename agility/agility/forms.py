@@ -87,3 +87,16 @@ class SprintForm(forms.ModelForm):
 
     class Meta:
         model = Sprint
+
+class CommentForm(forms.ModelForm):
+    text = forms.CharField(max_length = 160,required=True,\
+                label="Add Comment")
+
+    def clean(self):
+        cleaned_data = super(CommentForm, self).clean()
+
+        return cleaned_data
+
+    class Meta:
+        model = TaskComment
+        exclude = ['user', 'task', 'date_time']
