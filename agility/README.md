@@ -7,14 +7,14 @@ Create a Sprint associated with that project
 Create tasks for the sprint
 
 TODO:
-MAKE A NICE 404 PAGE
-Make projects associated with users
-Validations
-Analytics page
-Button to generate analytics for a sprint, once the sprint period is over.
+* MAKE A NICE 404 PAGE
+* Make projects associated with users
+* Validations
+* Analytics page
+* Button to generate analytics for a sprint, once the sprint period is over.
 
 Analytics (FOR RETROSPECTIVE)
-* Completed / Uncompleted tasks
+* Completed / Uncompleted tasks (query for completed/incomplete tasks. Query)
 * Tasks in a sprint that a user owns
 * total tasks in a sprint
 * Remaining tasks in sprint

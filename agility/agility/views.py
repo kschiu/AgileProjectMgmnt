@@ -295,4 +295,17 @@ def delete_comment(request, id):
 	error(request, "Cannot delete another user's task")
 	return redirect(reverse('view_task', kwargs={'id': task_id}))
 
+@login_required
+def sprint_analytics(request, id):
+	context = {}
+	sprint = get_object_or_404(Sprint, id=id)
+	if not sprint:
+		raise Http404
+
+	context['tasks'] = Task.objects.filter(sprint=sprint).all()
+	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()
+	context['incomplete_tasks'] = Task.objects.filter(sprint=sprint, completed=False).all()
+
+	return render(request, 'agility/sprint_analytics.html', context)
+
 

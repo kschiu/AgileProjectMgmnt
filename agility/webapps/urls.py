@@ -31,4 +31,6 @@ urlpatterns = patterns('',
     url(r'^add_comment/(?P<id>\d+)$', 'agility.views.add_comment', name='add_comment'),
     url(r'^delete_comment/(?P<id>\d+)$', 'agility.views.delete_comment', name='delete_comment'),
 
+    url(r'^sprint_analytics/(?P<id>\d+)$', 'agility.views.sprint_analytics', name='sprint_analytics'),
+
 )
