@@ -37,6 +37,7 @@
 			</div>					
 		</div>
 	</div>
+	{% if upcoming_tasks %}
 	<h1>Upcoming tasks in this Sprint:</h1>
 	{% for task in upcoming_tasks%}
 		<div class="well well-lg">
@@ -46,6 +47,12 @@
 			<p>{{task.description}}
 		</div>
 	{% endfor %}
+	{% else %}
+	<h3><em>No upcoming tasks for this sprint.</em></h3>
+	{% endif %}
+
+	<hr>
+	{% if completed_tasks %}
 	<h1>Completed tasks in this Sprint:</h1>
 	{% for t in completed_tasks%}
 		<div class="well well-lg">
@@ -55,5 +62,9 @@
 			<p>{{t.description}}
 		</div>
 	{% endfor %}
+	{% else %}
+	<h3><em>No completed tasks yet.</em></h3>
+	{% endif %}
+
 </div>
 {% endblock %}
