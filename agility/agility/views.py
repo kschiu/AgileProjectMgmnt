@@ -298,14 +298,25 @@ def delete_comment(request, id):
 @login_required
 def sprint_analytics(request, id):
 	context = {}
+	context['request'] = request
 	sprint = get_object_or_404(Sprint, id=id)
 	if not sprint:
 		raise Http404
 
+	avg_difficulty = []
+	avg_hours = []
+
 	context['tasks'] = Task.objects.filter(sprint=sprint).all()
 	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()
 	context['incomplete_tasks'] = Task.objects.filter(sprint=sprint, completed=False).all()
+	context['user_tasks'] = Task.objects.filter(sprint=sprint, user_assigned=request.user)
+
+	#GET ALL THE HOURS AND DIFFICULTIES OF TASKS
+	for task in context['tasks']:
+		avg_difficulty.append(task.difficulty)
+		avg_hours.append(task.hours_spent)
+
+	context['avg_difficulty'] = sum(avg_difficulty) / len(avg_difficulty)
+	context['avg_hours'] = sum(avg_hours) / len(avg_hours)
 
 	return render(request, 'agility/sprint_analytics.html', context)
-
-

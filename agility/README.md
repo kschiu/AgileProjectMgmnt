@@ -15,15 +15,13 @@ TODO:
 
 Analytics (FOR RETROSPECTIVE)
 * Completed / Uncompleted tasks (query for completed/incomplete tasks. Query)
-* Tasks in a sprint that a user owns
+* Tasks in a sprint that a user owns (Q for request.user and tthe sprint tasks)
 * total tasks in a sprint
-* Remaining tasks in sprint
-* Average task difficulty
-* Average time spent on task
-* Total amount of time spent on a task.
+* Average task difficulty 
+* Average time spent on task 
+* Total amount of time spent on a task. (Query for all completed tasks and get total time spent)
 * Users who worked on a sprint/project
 
 
-ABILITY TO MESSAGE OTHER USERS?
 USER PROFILE PAGE??
 
