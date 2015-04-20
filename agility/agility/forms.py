@@ -77,7 +77,8 @@ class SprintForm(forms.ModelForm):
                     empty_label="Select Project")
     start_date = forms.DateField(required=True, widget=SelectDateWidget())
     end_date = forms.DateField(required=True, widget=SelectDateWidget())
-    retrospective = forms.CharField(widget = forms.Textarea, required=False)
+    users = forms.CheckboxSelectMultiple(User.objects.all(),\
+                    empty_label="Select User"))
 
     def clean(self):
         cleaned_data = super(SprintForm, self).clean()
@@ -103,3 +104,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = TaskComment
         exclude = ['user', 'task', 'date_time']
+
+class RetrospectiveForm(forms.ModelForm):
+    retrospective = forms.CharField(widget = forms.Textarea)
+    sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
+                    empty_label="Select Sprint")
+
+    class Meta:
+        model = retrospective

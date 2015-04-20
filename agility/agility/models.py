@@ -13,8 +13,8 @@ class Project(models.Model):
 class Sprint(models.Model):
 	start_date = models.DateField()
 	end_date = models.DateField()
-	retrospective = models.TextField()
 	project = models.ForeignKey(Project)
+	users = models.ManyToManyField(User)
 
 	def __unicode__(self):
 		return self.project.name + ' Sprint: '+ \
@@ -42,3 +42,12 @@ class TaskComment(models.Model):
 
 	def __unicode__(self):
 		return 'User:'+ self.user.username + '\n' + self.text
+
+class Retrospective(models.Model):
+	sprint = models.ForeignKey(Sprint)
+	text = models.TextField()
+
+	def __unicode__(self):
+		return 'Retrospective for sprint '+ \
+			(self.sprint.start_date).strftime('%m/%d/%Y') \
+			+ "-" + (self.sprint.end_date).strftime('%m/%d/%Y') 
