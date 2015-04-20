@@ -15,7 +15,7 @@ def index(request, msg=None):
 	if (msg != None):
 		context['msg'] = msg
 	context['sprints'] = Sprint.objects.all()
-	context['projects'] = Project.objects.all()
+	context['projects'] = Project.objects.filter(user=request.user)
 	context['upcoming_tasks'] = Task.objects.filter(user_assigned=request.user, completed=False).all()
 	context['user'] = request.user
 	return render(request, 'agility/index.html', context)
@@ -45,6 +45,10 @@ def register(request):
 										password=form.cleaned_data['password1'])
 	new_user.save()
 	context['user'] = new_user
+	# Logs in the new user and redirects
+	new_user = authenticate(username=form.cleaned_data['username'],
+							password=form.cleaned_data['password1'])
+	login(request, new_user)
 	return render(request, 'agility/index.html', context)
 
 @login_required
@@ -89,7 +93,8 @@ def create_project(request):
 		return render(request, 'agility/create_project.html', context)
 
 	new_project = Project.objects.create(name=form.cleaned_data['name'], \
-					description=form.cleaned_data['description'])
+					description=form.cleaned_data['description'],\
+					user=form.cleaned_data['user'])
 	new_project.save()
 	return redirect(reverse('index'))
 

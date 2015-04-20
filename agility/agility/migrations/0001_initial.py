@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=160)),
                 ('description', models.TextField()),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -48,6 +49,19 @@ class Migration(migrations.Migration):
                 ('completed', models.BooleanField(default=False)),
                 ('sprint', models.ForeignKey(to='agility.Sprint')),
                 ('user_assigned', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='TaskComment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('text', models.CharField(max_length=160)),
+                ('date_time', models.DateTimeField()),
+                ('task', models.ForeignKey(to='agility.Task')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },

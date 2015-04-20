@@ -36,6 +36,8 @@ class RegistrationForm(forms.Form):
 class ProjectForm(forms.ModelForm):
     name = forms.CharField(max_length = 160,required=True)
     description = forms.CharField(widget = forms.Textarea)
+    user = forms.ModelChoiceField(queryset=User.objects.all(),\
+            empty_label="Select User", label='Project Owner')
 
     def clean(self):
         cleaned_data = super(ProjectForm, self).clean()

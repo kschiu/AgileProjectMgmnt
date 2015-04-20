@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Project(models.Model):
 	name = models.CharField(max_length=160)
 	description = models.TextField()
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return 'Project:'+ self.name
