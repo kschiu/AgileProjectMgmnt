@@ -3,11 +3,35 @@
 {% block content %}
 <div class="container">
 	<h1 class="text-center"> Sprint Analytics </h1>
+
+	<h1>Completed tasks in this Sprint:</h1>
+	{% for task in completed_tasks%}
+		<div class="well well-lg">
+			<a href={% url 'view_task' task.id %}> 
+				{{task.name}} 
+			</a>
+			<p>{{task.description}}
+		</div>
+	{% endfor %}
+
+	<hr>
+
+	<h1>Incomplete task in this Sprint:</h1>
+	{% for task in incomplete_tasks%}
+		<div class="well well-lg">
+			<a href={% url 'view_task' task.id %}> 
+				{{task.name}} 
+			</a>
+			<p>{{task.description}}
+		</div>
+	{% endfor %}
+
 	<div class="row">
 		<div class="col-md-4" id="complete"></div>
 		<div class="col-md-4" id="incomplete"></div>
 		<div class="col-md-4" id="user_portion"></div>
 	</div>
+	<div id="graph"></div>
 </div>
 
 <script language="JavaScript">
@@ -30,5 +54,36 @@
                 .value({{num_user_tasks}})
                 .render();
 	}
+</script>
+<script type="text/javascript">
+
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Title');
+    data.addColumn('number', 'Units');
+    data.addRows([
+      ['Hours', {{avg_hours}}],
+      ['Difficulty', {{avg_difficulty}}],
+    ]);
+
+    // Set chart options
+    var options = {'title':'Average Hours and Difficulty',
+                   'height':500};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.BarChart(document.getElementById('graph'));
+    chart.draw(data, options);
+  }
 </script>
 {% endblock %}
