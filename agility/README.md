@@ -14,6 +14,9 @@ TODO:
 * Button to generate analytics for a sprint, once the sprint period is over.
 
 Analytics (FOR RETROSPECTIVE)
+
+* NEED TO MAKE BTN TO GENERATE A SPRINT ANALYTIC IFF THE PERIOD IS OVER.
+
 * Completed / Uncompleted tasks (query for completed/incomplete tasks. Query)
 * Tasks in a sprint that a user owns (Q for request.user and tthe sprint tasks)
 * total tasks in a sprint

@@ -298,7 +298,7 @@ def delete_comment(request, id):
 @login_required
 def sprint_analytics(request, id):
 	context = {}
-	context['request'] = request
+	# context['request'] = request
 	sprint = get_object_or_404(Sprint, id=id)
 	if not sprint:
 		raise Http404
@@ -316,7 +316,12 @@ def sprint_analytics(request, id):
 		avg_difficulty.append(task.difficulty)
 		avg_hours.append(task.hours_spent)
 
-	context['avg_difficulty'] = sum(avg_difficulty) / len(avg_difficulty)
-	context['avg_hours'] = sum(avg_hours) / len(avg_hours)
-
+	context['avg_difficulty'] = sum(avg_difficulty) / float(len(avg_difficulty))
+	context['avg_hours'] = sum(avg_hours) / float(len(avg_hours))
+	context['total_hours'] = sum(avg_hours)
+	context['num_total_tasks'] = Task.objects.filter(sprint=sprint).count()
+	context['num_comp_tasks'] = ((Task.objects.filter(sprint=sprint, completed=True).count()) / float(context['num_total_tasks'])) * 100
+	context['num_incomp_tasks'] = ((Task.objects.filter(sprint=sprint, completed=False).count()) / float(context['num_total_tasks'])) * 100
+	context['num_user_tasks'] = ((Task.objects.filter(sprint=sprint, user_assigned=request.user).count()) / float(context['num_total_tasks'])) * 100
+	
 	return render(request, 'agility/sprint_analytics.html', context)
