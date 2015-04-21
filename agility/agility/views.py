@@ -14,7 +14,7 @@ def index(request, msg=None):
 	context = {}
 	if (msg != None):
 		context['msg'] = msg
-	context['sprints'] = Sprint.objects.all()
+	context['sprints'] = Sprint.objects.filter(users__username=request.user.username)
 	context['projects'] = Project.objects.filter(user=request.user)
 	context['upcoming_tasks'] = Task.objects.filter(user_assigned=request.user, completed=False).all()
 	context['user'] = request.user

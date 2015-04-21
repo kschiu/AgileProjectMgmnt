@@ -15,7 +15,6 @@ TODO:
 * Ability to view others projects and sprints?
 
 * Make retrospective a seperate model on the analytics page?
-* Add users to a sprint
 * Only be able to delete things if you are the owner
 
 ====
