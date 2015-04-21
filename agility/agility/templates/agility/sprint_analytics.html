@@ -18,6 +18,9 @@
 
 	<hr>
 	<h1>Completed tasks in this Sprint:</h1>
+  {% if not completed_tasks %}
+    <h3><em>No completed tasks this sprint</em></h3>
+  {% endif %}
 	{% for task in completed_tasks%}
 		<div class="well well-lg">
 			<a href={% url 'view_task' task.id %}> 
@@ -30,6 +33,9 @@
 	<hr>
 
 	<h1>Incomplete task in this Sprint:</h1>
+  {% if not incomplete_tasks %}
+    <h3><em>All tasks finished this sprint.</em></h3>
+  {% endif %}
 	{% for task in incomplete_tasks%}
 		<div class="well well-lg">
 			<a href={% url 'view_task' task.id %}> 
