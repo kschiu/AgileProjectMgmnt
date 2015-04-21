@@ -1,0 +1,17 @@
+{% extends "agility/base.html" %}
+
+{% block content %}
+<div class="container">
+<p>
+    Create a Sprint Retrospective
+</p>
+
+<form enctype="multipart/form-data" method="post" action="{% url 'create_retrospective' %}" id="create_retrospective">
+    <table>
+        {{form}}
+    </table>
+    {% csrf_token %}
+</form>
+
+<button class="btn btn-default" type="submit" form="create_retrospective" value="Submit">Create Retrospective</button>
+{% endblock %}

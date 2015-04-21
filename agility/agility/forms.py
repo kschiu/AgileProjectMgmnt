@@ -111,4 +111,4 @@ class RetrospectiveForm(forms.ModelForm):
                     empty_label="Select Sprint")
 
     class Meta:
-        model = retrospective
+        model = Retrospective

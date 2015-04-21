@@ -25,13 +25,23 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='Retrospective',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('text', models.TextField()),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Sprint',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
-                ('retrospective', models.TextField()),
                 ('project', models.ForeignKey(to='agility.Project')),
+                ('users', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -66,5 +76,11 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='retrospective',
+            name='sprint',
+            field=models.ForeignKey(to='agility.Sprint'),
+            preserve_default=True,
         ),
     ]

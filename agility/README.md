@@ -8,7 +8,6 @@ Create tasks for the sprint
 
 TODO:
 * MAKE A NICE 404 PAGE
-* Validations
 * Analytics page
 * Button to generate analytics for a sprint, once the sprint period is over.
 
@@ -17,6 +16,7 @@ TODO:
 
 * Make retrospective a seperate model on the analytics page?
 * Add users to a sprint
+* Only be able to delete things if you are the owner
 
 ====
 Analytics (FOR RETROSPECTIVE)

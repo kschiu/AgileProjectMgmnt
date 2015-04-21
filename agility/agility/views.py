@@ -116,9 +116,30 @@ def create_sprint(request):
 	new_sprint = Sprint.objects.create(project=form.cleaned_data['project'], \
 					start_date=form.cleaned_data['start_date'], \
 					end_date=form.cleaned_data['end_date'], \
-					retrospective=form.cleaned_data['retrospective'])
+					users=form.cleaned_data['users'])
 	new_sprint.save()
 	return redirect(reverse('view_project', kwargs={'id':form.cleaned_data['project'].id}))
+
+@login_required
+@transaction.atomic
+def create_retrospective(request):
+	context = {}
+
+	if request.method == 'GET':
+		context['form'] = RetrospectiveForm()
+		return render(request, 'agility/create_retrospective.html', context)
+
+	form = RetrospectiveForm(request.POST)
+	context['form'] = form
+
+	if not form.is_valid():
+		return render(request, 'agility/create_retrospective.html', context)
+
+	new_retro = Retrospective.objects.create(sprint=form.cleaned_data['sprint'], \
+					retrospective=form.cleaned_data['retrospective'])
+	new_retro.save()
+	return redirect(reverse('sprint_analytics', kwargs={'id':form.cleaned_data['sprint'].id}))
+
 
 @login_required
 @transaction.atomic
