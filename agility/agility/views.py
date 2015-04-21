@@ -356,7 +356,7 @@ def sprint_analytics(request, id):
 		form = RetrospectiveForm(request.POST)
 		context['form'] = form
 	else:
-		context['retrospective'] = Retrospective.objects.get(sprint=sprint)
+		context['retrospective'] = Retrospective.objects.filter(sprint=sprint)[0]
 	context['sprint'] = sprint
 	avg_difficulty = []
 	avg_hours = []
