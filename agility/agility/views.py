@@ -239,6 +239,7 @@ def view_project(request, id):
 	project = get_object_or_404(Project, id=id)
 	if not project:
 		raise Http404
+	context['user'] = request.user
 	context['project'] = project
 	context['sprints'] = Sprint.objects.filter(project=project).all().order_by('start_date')
 	return render(request, 'agility/view_project.html', context)
@@ -250,6 +251,7 @@ def view_sprint(request, id):
 	if not sprint:
 		raise Http404
 	context['sprint'] = sprint
+	context['user'] = request.user
 	context['users'] = sprint.users.all()
 	context['upcoming_tasks'] = Task.objects.filter(sprint=sprint, completed=False).all()
 	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()

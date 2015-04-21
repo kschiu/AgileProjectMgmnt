@@ -10,6 +10,7 @@
 		</div>
 		<div class="panel-footer">
 			<div class="row">
+				{% if user == project.user %}
 				<div class="col-md-6">
 					<form method="get" action={% url 'edit_project' project.id %}>
 						<button class="btn btn-sm btn-primary" type="submit">
@@ -26,6 +27,7 @@
 						</form>
 					</div>
 				</div>
+				{% endif %}
 			</div>					
 		</div>
 

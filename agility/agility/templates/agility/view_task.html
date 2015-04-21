@@ -14,12 +14,14 @@
 			<p>Description: {{task.description}}</p>
 			<p>Hours Spent: {{task.hours_spent}}</p>
 			<p>Difficulty: {{task.difficulty}}</p>
+			<p>Assigned to: {{task.user_assigned.username}}</p>
 			{% if task.github_link %}
 			<a href={{task.github_link}}>Link to GitHub Branch</a>
 			{% endif %}
 		</div>
 		<div class="panel-footer">
 			<div class="row">
+				{% if request.user == task.user_assigned %}
 				<div class="col-md-6">
 					<form method="get" action={% url 'edit_task' task.id %}>
 						<button class="btn btn-sm btn-primary" type="submit">
@@ -36,6 +38,7 @@
 						</form>
 					</div>
 				</div>
+			{% endif %}
 			</div>
 		</div>
 	</div>

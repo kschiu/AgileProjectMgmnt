@@ -8,8 +8,6 @@ Create tasks for the sprint
 
 TODO:
 * MAKE A NICE 404 PAGE
-* Analytics page
-* Button to generate analytics for a sprint, once the sprint period is over.
 * Cannot create/edit a thing if you are not the owner
 * Make retrospective a seperate model on the analytics page?
 * Only be able to delete things if you are the owner
