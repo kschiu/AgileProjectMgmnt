@@ -10,10 +10,7 @@ TODO:
 * MAKE A NICE 404 PAGE
 * Analytics page
 * Button to generate analytics for a sprint, once the sprint period is over.
-
-* USER PROFILE PAGE??
-* Ability to view others projects and sprints?
-
+* Cannot create/edit a thing if you are not the owner
 * Make retrospective a seperate model on the analytics page?
 * Only be able to delete things if you are the owner
 
@@ -29,10 +26,3 @@ Analytics (FOR RETROSPECTIVE)
 * Total amount of time spent on a task. (Query for all completed tasks and get total time spent)
 * Users who worked on a sprint/project
 ===
-
-
-
-
-
-
-

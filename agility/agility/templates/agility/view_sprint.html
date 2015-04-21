@@ -14,13 +14,28 @@
 			</div>
 		</div>
 		<div class="panel-body">
-			<p>Starting: {{sprint.start_date}}, ending: {{sprint.end_date}}</p>
-			<p>Sprint Participants:</p>
-			<ul>
-			{% for u in users %}
-				<li>{{u.username}}</li>
-			{% endfor %}
-			</ul>
+			<div class="row">
+				<div class="col-md-6">
+					<p>Starting: {{sprint.start_date}}, ending: {{sprint.end_date}}</p>
+					<p>Sprint Participants:</p>
+					<ul>
+					{% for u in users %}
+						<li><a href={% url 'profile' u.id %} >{{u.username}}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
+				{% if curr_date > sprint.end_date %}
+				<div class="col-md-6">
+					<div class="pull-right">
+						<form method="get" action={% url 'sprint_analytics' sprint.id %}>
+							<button class="btn btn-sm btn-primary" type="submit">
+								Generate Analytics
+							</button>
+						</form>
+					</div>
+				</div>
+				{% endif %}
+			</div>
 		</div>
 		<div class="panel-footer">
 			<div class="row">
