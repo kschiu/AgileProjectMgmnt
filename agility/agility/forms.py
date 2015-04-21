@@ -46,6 +46,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
+        exclude = []
 
 class TaskForm(forms.ModelForm):
     user_assigned = forms.ModelChoiceField(queryset=User.objects.all(),\
@@ -71,6 +72,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
+        exclude = []
 
 class SprintForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all(),\
@@ -90,6 +92,7 @@ class SprintForm(forms.ModelForm):
 
     class Meta:
         model = Sprint
+        exclude = []
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(max_length = 160,required=True,\
@@ -107,7 +110,7 @@ class CommentForm(forms.ModelForm):
 
 class RetrospectiveForm(forms.ModelForm):
     text = forms.CharField(widget = forms.Textarea)
-    
+
     class Meta:
         model = Retrospective
         exclude = ['sprint']
