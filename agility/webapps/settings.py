@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import ConfigParser
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -24,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -57,12 +58,20 @@ WSGI_APPLICATION = 'webapps.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(BASE_DIR, 'config.ini'))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': config.get('DB', 'User'),
+        'PASSWORD': config.get('DB', 'Password'),
+        'HOST': config.get('DB', 'Host'),
+        'PORT': config.get('DB', 'Port')
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
