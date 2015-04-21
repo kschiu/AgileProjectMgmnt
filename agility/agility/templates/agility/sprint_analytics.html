@@ -41,11 +41,30 @@
 			<a href={% url 'view_task' task.id %}> 
 				{{task.name}} 
 			</a>
-			<p>{{task.description}}
+			<p>{{task.description}}</p>
 		</div>
 	{% endfor %}
 
+  {% if retrospective %}
+    <h1>Sprint Retrospective</h1>
+    <div class="well well-lg">
+      <p>{{retrospective.text}}</p>
+    </div>
+  {% else %}
+  <h1>Submit a sprint retrospective</h1>
+  <form enctype="multipart/form-data" method="post" action="{% url 'create_retrospective' sprint.id %}" id="create_retrospective">
+    <table>
+        {{form}}
+    </table>
+    {% csrf_token %}
+  </form>
+
+  <button class="btn btn-default" type="submit" form="create_retrospective" value="Submit">Create Retrospective</button>
+
+  {% endif %}
+
 </div>
+
 
 <script language="JavaScript">
     start();

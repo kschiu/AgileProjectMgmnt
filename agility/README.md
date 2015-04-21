@@ -8,9 +8,7 @@ Create tasks for the sprint
 
 TODO:
 * MAKE A NICE 404 PAGE
-* Cannot create/edit a thing if you are not the owner
 * Make retrospective a seperate model on the analytics page?
-* Only be able to delete things if you are the owner
 
 ====
 Analytics (FOR RETROSPECTIVE)

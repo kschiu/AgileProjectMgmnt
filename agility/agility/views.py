@@ -133,7 +133,7 @@ def create_sprint(request):
 
 @login_required
 @transaction.atomic
-def create_retrospective(request):
+def create_retrospective(request, id):
 	context = {}
 
 	if request.method == 'GET':
@@ -146,10 +146,10 @@ def create_retrospective(request):
 	if not form.is_valid():
 		return render(request, 'agility/create_retrospective.html', context)
 
-	new_retro = Retrospective.objects.create(sprint=form.cleaned_data['sprint'], \
-					retrospective=form.cleaned_data['retrospective'])
+	new_retro = Retrospective.objects.create(sprint=Sprint.objects.get(pk=id), \
+					text=form.cleaned_data['text'])
 	new_retro.save()
-	return redirect(reverse('sprint_analytics', kwargs={'id':form.cleaned_data['sprint'].id}))
+	return redirect(reverse('sprint_analytics', kwargs={'id':id}))
 
 
 @login_required
@@ -352,7 +352,11 @@ def sprint_analytics(request, id):
 	sprint = get_object_or_404(Sprint, id=id)
 	if not sprint:
 		raise Http404
-
+	if Retrospective.objects.filter(sprint=sprint).count() == 0:
+		form = RetrospectiveForm(request.POST)
+		context['form'] = form
+	context['sprint'] = sprint
+	context['retrospective'] = Retrospective.objects.get(sprint=sprint)
 	avg_difficulty = []
 	avg_hours = []
 

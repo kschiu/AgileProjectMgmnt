@@ -33,7 +33,7 @@ urlpatterns = patterns('',
 
     url(r'^sprint_analytics/(?P<id>\d+)$', 'agility.views.sprint_analytics', name='sprint_analytics'),
 
-    url(r'^create_retrospective$', 'agility.views.create_retrospective', name='create_retrospective'),
+    url(r'^create_retrospective/(?P<id>\d+)$', 'agility.views.create_retrospective', name='create_retrospective'),
 
     url(r'^profile/(?P<id>\d+)$', 'agility.views.profile', name='profile'),
 

@@ -107,8 +107,7 @@ class CommentForm(forms.ModelForm):
 
 class RetrospectiveForm(forms.ModelForm):
     text = forms.CharField(widget = forms.Textarea)
-    sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
-                    empty_label="Select Sprint")
-
+    
     class Meta:
         model = Retrospective
+        exclude = ['sprint']
