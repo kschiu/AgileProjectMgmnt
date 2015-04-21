@@ -239,6 +239,7 @@ def view_sprint(request, id):
 	if not sprint:
 		raise Http404
 	context['sprint'] = sprint
+	context['users'] = sprint.users.all()
 	context['upcoming_tasks'] = Task.objects.filter(sprint=sprint, completed=False).all()
 	context['completed_tasks'] = Task.objects.filter(sprint=sprint, completed=True).all()
 	return render(request, 'agility/view_sprint.html', context)
