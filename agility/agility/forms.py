@@ -77,13 +77,13 @@ class SprintForm(forms.ModelForm):
                     empty_label="Select Project")
     start_date = forms.DateField(required=True, widget=SelectDateWidget())
     end_date = forms.DateField(required=True, widget=SelectDateWidget())
-    users = forms.CheckboxSelectMultiple(User.objects.all(),\
-                    empty_label="Select User"))
+    users = forms.ModelMultipleChoiceField(queryset=User.objects.all())
 
     def clean(self):
         cleaned_data = super(SprintForm, self).clean()
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
+        users = cleaned_data.get('users')
         if end_date < start_date:
             raise forms.ValidationError("End date must be after start date.")
         return cleaned_data

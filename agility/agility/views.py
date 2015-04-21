@@ -115,9 +115,9 @@ def create_sprint(request):
 
 	new_sprint = Sprint.objects.create(project=form.cleaned_data['project'], \
 					start_date=form.cleaned_data['start_date'], \
-					end_date=form.cleaned_data['end_date'], \
-					users=form.cleaned_data['users'])
+					end_date=form.cleaned_data['end_date'])
 	new_sprint.save()
+	new_sprint.users.add(*form.cleaned_data['users'])
 	return redirect(reverse('view_project', kwargs={'id':form.cleaned_data['project'].id}))
 
 @login_required
