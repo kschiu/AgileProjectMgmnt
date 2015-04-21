@@ -106,7 +106,7 @@ class CommentForm(forms.ModelForm):
         exclude = ['user', 'task', 'date_time']
 
 class RetrospectiveForm(forms.ModelForm):
-    retrospective = forms.CharField(widget = forms.Textarea)
+    text = forms.CharField(widget = forms.Textarea)
     sprint = forms.ModelChoiceField(queryset=Sprint.objects.all(),\
                     empty_label="Select Sprint")
 

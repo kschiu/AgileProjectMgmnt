@@ -20,6 +20,16 @@ def index(request, msg=None):
 	context['user'] = request.user
 	return render(request, 'agility/index.html', context)
 
+@login_required
+def profile(request, id):
+	context = {}
+	user = User.objects.get(pk=id)
+	context['user'] = user
+	context['sprints'] = Sprint.objects.filter(users__username=user.username)
+	context['projects'] = Project.objects.filter(user=user)
+	context['tasks'] = Task.objects.filter(user_assigned=user).all()
+	return render(request, 'agility/profile.html', context)
+
 @transaction.atomic
 def register(request):
 	context = {}
