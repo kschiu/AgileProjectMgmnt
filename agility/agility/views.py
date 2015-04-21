@@ -281,24 +281,33 @@ def view_task(request, id):
 @transaction.atomic
 def delete_project(request, id):
 	project = get_object_or_404(Project, id=id)
-	project.delete()
-	error(request, 'Project successfully deleted!')
+	if request.user != project.user:
+		error(request, 'You do not have permission to delete the project.')
+	else:
+		project.delete()
+		error(request, 'Project successfully deleted!')
 	return redirect(reverse('index'))
 
 @login_required
 @transaction.atomic
 def delete_sprint(request, id):
 	sprint = get_object_or_404(Sprint, id=id)
-	sprint.delete()
-	error(request, 'Sprint successfully deleted!')
+	if request.user not in sprint.users.all(): 
+		error(request, 'You do not have permission to delete the sprint.')
+	else:
+		sprint.delete()
+		error(request, 'Sprint successfully deleted!')
 	return redirect(reverse('index'))
 
 @login_required
 @transaction.atomic
 def delete_task(request, id):
 	task = get_object_or_404(Task, id=id)
-	task.delete()
-	error(request, 'Task successfully deleted!')
+	if request.user != task.user_assigned:
+		error(request, 'You do not have permission to delete the task.')
+	else:
+		task.delete()
+		error(request, 'Task successfully deleted!')
 	return redirect(reverse('index'))
 
 @login_required
