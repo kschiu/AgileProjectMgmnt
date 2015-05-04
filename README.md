@@ -1,5 +1,9 @@
-# Team39
+#Agility Project Management
 Project Management Web Application for Agile Scrum Development
+
+Deployed on AWS
+
+Manage Projects, Sprints and Tasks
 
 URL:
 
